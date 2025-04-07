@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+         #
+#    By: ldick <ldick@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 19:28:14 by ldick             #+#    #+#              #
-#    Updated: 2025/04/06 20:01:38 by foxy12112        ###   ########.fr        #
+#    Updated: 2025/04/07 16:08:48 by ldick            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,16 @@ ERROR_FILE	=	error.log
 #											Sources												#
 #################################################################################################
 
+_EVENTS			=	clean_exit.c keyhooks.c
+EVENTS			=	$(addprefix events/, $(_EVENTS))
+
 _RENDERING		=	rendering.c
-RENDERING		=	$(addprefix rendering/, $(_PARSING))
+RENDERING		=	$(addprefix rendering/, $(_RENDERING))
 
 _PARSING		=	parsing.c
 PARSING			=	$(addprefix parsing/, $(_PARSING))
 
-_SRCS			=	fdf.c $(PARSING)
+_SRCS			=	fdf.c $(PARSING) $(RENDERING) $(EVENTS)
 SRCS			=	$(addprefix srcs/, $(_SRCS))
 
 OBJS			=	$(SRCS:srcs/%.c=bin/%.o)
@@ -81,6 +84,7 @@ bin:
 				@echo "\t\t\t$(BLUE) Making bin directory"
 				@mkdir -p bin/parsing
 				@mkdir -p bin/rendering
+				@mkdir -p bin/events
 
 bin/%.o:		srcs/%.c | bin
 				@echo "$(GREEN) Compiling $(Compiler) $(CLR_RMV) -c -o $(YELLOW) $@ $(CYAN) $^ $(GREEN) $(EXTRA_FLAGS) $(CFLAGS) $(GREEN) $(INCLUDES) $(NC)"

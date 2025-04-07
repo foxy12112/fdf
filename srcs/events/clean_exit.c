@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   clean_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 18:32:50 by ldick             #+#    #+#             */
-/*   Updated: 2025/04/07 15:39:06 by ldick            ###   ########.fr       */
+/*   Created: 2025/04/07 15:19:30 by ldick             #+#    #+#             */
+/*   Updated: 2025/04/07 15:26:22 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void leaks(void)
+void	clean_exit(t_fdf *fdf, int row)
 {
-	system("leaks fdf");
-}
-
-int main(int argc, char *argv[])
-{
-	if (argc != 2)
-		return (0);
-	t_fdf *fdf = parse(argv[1]);
-	fdf->mlx = mlx_init(WIDTH, HEIGHT, argv[1], false);
-	fdf->image = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(fdf->mlx, fdf->image, 0, 0);
-	pretty_background(fdf);
-	rendering(fdf);
-	mlx_loop_hook(fdf->mlx, &ft_loop_hook, fdf);
-	mlx_loop(fdf->mlx);
-	return (0);
+	int i = 0;
+	while(i < row)
+	{
+		free(fdf->three_d[i]);
+		i++;
+	}
+	mlx_delete_image(fdf->mlx, fdf->image);
+	mlx_terminate(fdf->mlx);
+	exit(0);
 }

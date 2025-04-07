@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: foxy12112 <foxy12112@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ldick <ldick@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:48:20 by foxy12112         #+#    #+#             */
-/*   Updated: 2025/04/06 20:26:14 by foxy12112        ###   ########.fr       */
+/*   Updated: 2025/04/07 15:27:26 by ldick            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,7 @@ typedef struct	s_fdf
 }				t_fdf;
 
 t_fdf			*parse(char *filename);
+void			pretty_background(t_fdf *fdf);
 int				rendering(t_fdf *fdf);
+void			clean_exit(t_fdf *fdf, int row);
+void			ft_loop_hook(void *param);
